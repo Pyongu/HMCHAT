@@ -7,7 +7,7 @@ function App() {
       <nav className="navbar">
         <div className="logo">HMCHAT</div>
         <ul className="nav-links">
-        {['Home', 'About'].map((text) => (
+        {['Home', 'About', 'Sign In'].map((text) => (
           <li key={text}>
             <a href={`#${text.toLowerCase()}`}>{text}</a>
           </li>

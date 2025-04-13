@@ -1,5 +1,5 @@
 .App {
-  color: yellow;
+  background-color: rgb(188, 188, 53);
   text-align: center;
 }
 
@@ -21,7 +21,7 @@
 
 .logo {
   font-size: 1.5rem;
-  color: #0ff;
+  color: yellow;
 }
 
 .nav-links {
@@ -38,7 +38,7 @@
 }
 
 .nav-links a:hover {
-  background-color: #0ff;
+  background-color: yellow;
   color: #000;
   border-radius: 5px;
 }
