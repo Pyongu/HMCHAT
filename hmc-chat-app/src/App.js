@@ -1,23 +1,29 @@
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Navbar from "./components/Navbar";
+import Chat from "./components/chatfront/Chat";
+import './index.css';
 
 function App() {
-  return (
-    <div className="App">
-      <div className = "Top"> 
-      <nav className="navbar">
-        <div className="logo">HMCHAT</div>
-        <ul className="nav-links">
-        {['Home', 'About', 'Sign In'].map((text) => (
-          <li key={text}>
-            <a href={`#${text.toLowerCase()}`}>{text}</a>
-          </li>
-        ))}
-          </ul>
-        </nav>
-      </div>
-    
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return isLoading ? (
+    <div className="h-screen flex justify-center items-center">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
     </div>
+  ) : (
+    <>
+      <Navbar />
+      <Chat />
+    </>
   );
 }
+
 
 export default App;
