@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Navbar from "./components/Navbar";
 import Chat from "./components/chatfront/Chat";
 import './index.css';
+import PopupExample from './components/popup/popup.tsx';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -21,6 +21,7 @@ function App() {
     <>
       <Navbar />
       <Chat />
+      <PopupExample />
     </>
   );
 }
