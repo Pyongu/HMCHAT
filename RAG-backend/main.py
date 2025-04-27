@@ -1,12 +1,23 @@
 # imports
-from fastapi import FastAPI
+import asyncio
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, status
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 import base64
+from fastapi.middleware.cors import CORSMiddleware
 from RAGChain import vector_store, text_splitter, rag_chain
 
 # Init App
 app = FastAPI()
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Make to change this before deployment
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Root Redirect to SwaggerUI
 @app.get('/', tags=["General"])
