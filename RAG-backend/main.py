@@ -33,7 +33,7 @@ class FileRequest(BaseModel):
 def upload_file(request: FileRequest):
 
     # Initialize File String
-    file_str = ''
+    file_str = 'TXkgbmFtZSBpcyBqb2hu'
 
     # Try and Decode File
     try:

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 const Chat = () => {
   const [messages, setMessages] = useState([
     { id: 1, text: "Hello! How can I help you today? 😊", sender: "bot" },
@@ -10,78 +9,79 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
 
-//   Handle change in the user query textarea 
-//   Implement this later, I think we are using a old verison of React?
-const handleQueryChange = (event) => {
-  setQuery(event.target.value);
-};
+  const handleQueryChange = (event) => {
+    setQuery(event.target.value);
+    setNewMessage(event.target.value);
+  };
 
-  // Handle message send
   const handleSendMessage = () => {
-    if (!newMessage.trim()) return; 
+    if (!newMessage.trim()) return;
 
-    // Open Websocket Instance
-    const websocket = new WebSocket('ws://localhost:8000/ws/stream');
+    const userMessage = {
+      id: messages.length + 1,
+      text: newMessage,
+      sender: "user",
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+
+    const websocket = new WebSocket("ws://localhost:8000/ws/stream");
     setIsStreaming(true);
-    setNewMessage("");
 
-    // Websocket On Open Action
+    const botMessageId = messages.length + 2;
+    let botText = "";
+
+    // Add empty placeholder bot message
+    setMessages((prev) => [
+      ...prev,
+      { id: botMessageId, text: "", sender: "HMC ChatBot" },
+    ]);
+
+    setNewMessage("");
+    setQuery("");
+
     websocket.onopen = () => {
-      console.log('WebSocket connection opened.');
-      // Send query to the server
+      console.log("WebSocket connection opened.");
       websocket.send(JSON.stringify({ query }));
     };
 
-    // ON MESSAGE HANDLER
     websocket.onmessage = (event) => {
-    const data = event.data;
-    console.log('data: ', data);
+      const data = event.data;
 
-    // Check for the termination flag
-    if (data === '<<END>>') {
-      websocket.close();
-      setIsStreaming(false);
-      return;
-    }
-    // Check for no query Error flag
-    if (data === '<<E:NO_QUERY>>') {
-      console.log('ERROR: No Query, closing connection...')
-      websocket.close();
-      setIsStreaming(false);
-      return;
-    }
+      if (data === "<<END>>") {
+        websocket.close();
+        setIsStreaming(false);
+        return;
+      }
 
-    const newMessageObj = {
-      id: messages.length + 1,
-      text: query,
-      sender: "user",
+      if (data === "<<E:NO_QUERY>>") {
+        console.log("ERROR: No Query, closing connection...");
+        websocket.close();
+        setIsStreaming(false);
+        return;
+      }
+
+      botText += data;
+
+      // Update last bot message
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === botMessageId ? { ...msg, text: botText } : msg
+        )
+      );
     };
-    setMessages([...messages, newMessageObj]);
-    setNewMessage("");
-    // Simulate bot response after user message
-    setTimeout(() => {
-      const botResponse = {
-        id: messages.length + 2,
-        text: data,
-        sender: "HMC ChatBot",
-      };
-      setMessages((prevMessages) => [...prevMessages, botResponse]);
-    }, 1000);
 
-    // Websocket Error Handler
     websocket.onerror = (error) => {
-      console.error('WebSocket error:', error);
+      console.error("WebSocket error:", error);
       websocket.close();
       setIsStreaming(false);
     };
 
-    // ON CLOSE Action
     websocket.onclose = () => {
-      console.log('WebSocket connection closed.');
+      console.log("WebSocket connection closed.");
       setIsStreaming(false);
     };
   };
-};
 
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col items-center py-6">
@@ -102,7 +102,9 @@ const handleQueryChange = (event) => {
                       : "bg-gray-300 text-black"
                   } p-3 rounded-lg max-w-xs break-words`}
                 >
-                  {message.text}
+                  {message.text || (
+                    <span className="italic text-gray-500">Typing...</span>
+                  )}
                 </div>
               </div>
             ))}
@@ -111,7 +113,6 @@ const handleQueryChange = (event) => {
             <input
               type="text"
               value={query}
-              // Change to use queryChange later
               onChange={handleQueryChange}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none"
               placeholder="Ask HMC Chatbot a question!"
