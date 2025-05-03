@@ -3,13 +3,8 @@ import Navbar from "./components/Navbar";
 import Chat from "./components/chatfront/Chat.jsx";
 import './index.css';
 import PopupExample from './components/popup/popup.tsx';
-import { HashRouter, Routes, Route } from 'react-router-dom'
-import {Login} from './components/popup/login.tsx'
-import { Home } from './home.jsx'
 
-
-
-function App() {
+export function Home() {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -18,15 +13,15 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <HashRouter>
-      <Routes>
-        <Route path = "/" element={<Login/>}/>
-        <Route path="/home.jsx" element = {<Home/>}/>
-      </Routes>
-    </HashRouter>
-  )
+  return isLoading ? (
+    <div className="h-screen flex justify-center items-center">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
+    </div>
+  ) : (
+    <>
+      <Navbar />
+      <Chat />
+      <PopupExample />
+    </>
+  );
 }
-
-
-export default App;
