@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+import { useOnKeyPress } from "../keyPress";
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -64,6 +65,7 @@ const Chat = () => {
       botText += data;
 
       // Update last bot message
+
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === botMessageId ? { ...msg, text: botText } : msg
@@ -82,6 +84,8 @@ const Chat = () => {
       setIsStreaming(false);
     };
   };
+
+  useOnKeyPress(handleSendMessage, 'Enter');
 
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col items-center py-6">
