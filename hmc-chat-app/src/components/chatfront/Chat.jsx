@@ -1,5 +1,7 @@
-import React, { useState} from "react";
+
+import React, { useState, useRef, useEffect } from "react";
 import { useOnKeyPress } from "../keyPress";
+
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -14,6 +16,22 @@ const Chat = () => {
     setQuery(event.target.value);
     setNewMessage(event.target.value);
   };
+
+  const chatEndRef = useRef(null);
+
+  
+
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth",
+      block: "end",    
+      inline: "nearest" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
@@ -83,6 +101,7 @@ const Chat = () => {
       console.log("WebSocket connection closed.");
       setIsStreaming(false);
     };
+
   };
 
   useOnKeyPress(handleSendMessage, 'Enter');
@@ -112,6 +131,7 @@ const Chat = () => {
                 </div>
               </div>
             ))}
+            <div ref={chatEndRef} />
           </div>
           <div className="mt-4 flex items-center space-x-2">
             <input
