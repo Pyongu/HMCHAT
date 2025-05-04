@@ -8,13 +8,16 @@ export function Login() {
 
     const navigate = useNavigate()
 
+
+
+    
     return (
         <>
         
             <GoogleLogin 
             onSuccess={(credentialResponse) => {
                 console.log(credentialResponse)
-                console.log(jwtDecode(credentialResponse.credential))
+                console.log(jwtDecode(credentialResponse.credential));
                 navigate("/home.jsx")
             }}
             

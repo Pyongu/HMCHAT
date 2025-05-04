@@ -3,6 +3,12 @@ import Navbar from "./components/Navbar";
 import Chat from "./components/chatfront/Chat.jsx";
 import './index.css';
 import PopupExample from './components/popup/popup.tsx';
+import Logout from './components/popup/logout.tsx';
+import './index.js';
+import App from './App.js';
+import {googleLogout} from '@react-oauth/google';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"
 
 export function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,6 +19,7 @@ export function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+
   return isLoading ? (
     <div className="h-screen flex justify-center items-center">
       <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
@@ -21,7 +28,10 @@ export function Home() {
     <>
       <Navbar />
       <Chat />
-      <PopupExample />
+      <Routes>
+        <Route path = "/" element={<Logout/>}/>
+        <Route path="/App.js" element = {<App/>}/>
+      </Routes>
     </>
   );
 }
