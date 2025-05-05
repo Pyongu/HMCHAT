@@ -24,6 +24,7 @@ text_splitter = CharacterTextSplitter(
 
 # Initialize ChromaDB as Vector Store
 vector_store = Chroma(
+    persist_directory="chroma",
     collection_name="test_collection",
     embedding_function=embeddings
 )
