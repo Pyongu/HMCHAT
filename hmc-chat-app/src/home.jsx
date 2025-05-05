@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Navbar from "./components/Navbar";
 import Chat from "./components/chatfront/Chat.jsx";
 import './index.css';
-import PopupExample from './components/popup/popup.tsx';
 import Logout from './components/popup/logout.tsx';
 import './index.js';
 import App from './App.js';
-import {googleLogout} from '@react-oauth/google';
-import { HashRouter, Routes, Route } from 'react-router-dom';
-import { useNavigate } from "react-router-dom"
+import { Routes, Route } from 'react-router-dom';
 
 export function Home() {
   const [isLoading, setIsLoading] = useState(true);

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { googleLogout } from "@react-oauth/google"
 import { jwtDecode} from "jwt-decode"
 import { useNavigate } from "react-router-dom"
-const CLIENT_ID = "484184324484-dnn5iloaabckg35bhb9igc32p8o0b7bg.apps.googleusercontent.com"
 export function Logout() {
     const navigate = useNavigate();
     const handleLogout = () => {
@@ -15,8 +14,7 @@ export function Logout() {
           return (
             <div>
                 <div>
-                  <p>Welcome! You're logged in.</p>
-                  <button onClick={handleLogout}>Log Out</button>
+                  <button onClick={handleLogout}></button>
                 </div>
             </div>
     )
