@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Navbar from "./components/Navbar";
 import Chat from "./components/chatfront/Chat.jsx";
 import './index.css';
-import PopupExample from './components/popup/popup.tsx';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +20,6 @@ function App() {
     <>
       <Navbar />
       <Chat />
-      <PopupExample />
     </>
   );
 }
