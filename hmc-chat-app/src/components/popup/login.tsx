@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-
+import "./login.css";
 interface GoogleJwtPayload {
     email: string;
     name: string;
@@ -32,10 +32,19 @@ export function Login() {
     };
 
     return (
-        <GoogleLogin
-            onSuccess={handleLoginSuccess}
-            onError={() => console.log("Login Failed")}
-            auto_select
-        />
+
+
+        <div className="login-wrapper">
+            <div className="login-card">
+                <img src="/Harvey_Mudd_College_logo.svg" alt="App Logo"  className="mx-auto mb-5 w-24" style={{ width: 100, marginBottom: 20 }} />
+                <h2>Welcome</h2>
+                <p>Please sign in with an HMC Email</p>
+                    <GoogleLogin
+                    onSuccess={handleLoginSuccess}
+                    onError={() => console.log("Login Failed")}
+                    auto_select = {true}
+                />
+            </div>
+        </div>
     );
 }
