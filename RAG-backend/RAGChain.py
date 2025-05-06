@@ -29,8 +29,11 @@ vector_store = Chroma(
     embedding_function=embeddings
 )
 
+# Set how many chunks we want
+n = 10
+
 # Set Chroma as the Retriever
-retriever = vector_store.as_retriever()
+retriever = vector_store.as_retriever(search_kwargs={"k": n})
 
 # Create the Prompt Template
 prompt_template = """Use the context provided to answer the user's question 
@@ -65,7 +68,7 @@ def query_rewrite(query: str, llm: ChatOpenAI):
 
 # Create Document Parsing Function to String
 def format_docs(docs):
-    return "\n\n".join(doc.page_content for doc in docs)
+    return "\n\n---\n\n".join(doc.page_content for doc in docs)
 
 # Custom RAG Chain Class
 class RAGChain:
@@ -97,7 +100,7 @@ class RAGChain:
         final_prompt = self.prompt.format(context=context, query=query)
 
         # LLM Invoke
-        return llm.invoke(final_prompt)
+        return (final_prompt, llm.invoke(final_prompt))
     
     # Stream Invoke of Rag Chain
     def stream(self, query: str):
