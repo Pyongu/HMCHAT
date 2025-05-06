@@ -108,8 +108,8 @@ const Chat = () => {
 
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col items-center py-6">
-      <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full mt-20">
-        <div className="p-4 flex flex-col h-[500px]">
+      <div className="bg-white rounded-xl shadow-xl max-w-5xl w-full mt-20">
+        <div className="p-4 flex flex-col h-[650px]">
           <div className="flex-1 overflow-y-auto space-y-4">
             {messages.map((message) => (
               <div

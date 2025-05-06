@@ -95,11 +95,11 @@ const Navbar = () => {
         <nav className="bg-black border-2 w-4/5 mx-auto rounded-full shadow-2xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
-              <div className="flex-shrink-0 flex justify-start text-gold-500">
+              <div className="flex-shrink-0 flex justify-center text-gold-500">
                 {/* Logo or title can go here */}
                 <h1 className="text-2xl font-bold">HMC</h1>
               </div>
-              <div className="ml-10 flex items-center lg:items-baseline space-x-8 text-white">
+              <div className="ml-auto flex items-center lg:items-baseline space-x-8 text-white">
                 {navItems.map((item) => (
                   <NavbarItem
                     key={item}
