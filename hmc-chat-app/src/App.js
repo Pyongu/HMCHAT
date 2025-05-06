@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from "./components/Navbar";
-import Chat from "./components/chatfront/Chat.jsx";
 import './index.css';
-import PopupExample from './components/popup/popup.tsx';
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import {Login} from './components/popup/login.tsx'
 import { Home } from './home.jsx'
