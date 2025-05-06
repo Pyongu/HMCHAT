@@ -108,7 +108,7 @@ const Chat = () => {
 
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col items-center py-6">
-      <div className="bg-white rounded-xl shadow-xl max-w-xl w-full mt-20">
+      <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full mt-20">
         <div className="p-4 flex flex-col h-[500px]">
           <div className="flex-1 overflow-y-auto space-y-4">
             {messages.map((message) => (
@@ -123,7 +123,7 @@ const Chat = () => {
                     message.sender === "user"
                       ? "bg-gold-600 text-black"
                       : "bg-gray-300 text-black"
-                  } p-3 rounded-lg max-w-xs break-words`}
+                  } p-3 rounded-lg max-w-xl break-words`}
                 >
                   {message.text || (
                     <span className="italic text-gray-500">Typing...</span>
