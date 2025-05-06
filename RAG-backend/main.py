@@ -33,7 +33,7 @@ class FileRequest(BaseModel):
 def upload_file(request: FileRequest):
 
     # Initialize File String
-    file_str = 'TXkgbmFtZSBpcyBqb2hu'
+    file_str = ''
 
     # Try and Decode File
     try:
@@ -64,7 +64,6 @@ def upload_file(request: FileRequest):
 # Define Semantic Similarity POST Request
 class SearchRequest(BaseModel):
     search_str: str # VectorDB Search String
-    n: int = 2 # Number of Chunks to Return From the VectorDB (Default 2)
 
 # POST: Returns Semantic Similarity Chunks based on a user's query
 @app.post('/vector_search', tags=["VectorDB"])
@@ -72,8 +71,7 @@ def similarity_search(request: SearchRequest):
     try:
         #  Query the Vector Store
         results = vector_store.similarity_search(
-            request.search_str,
-            k = request.n
+            request.search_str
         )
         
         # Return Success & Chunks
